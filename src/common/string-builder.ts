@@ -1,7 +1,6 @@
 import dateformat from 'dateformat';
-import { GlobalLogConfig } from './types';
+import { GlobalLogConfig, LOG_TYPE } from './types';
 import chalk from 'chalk';
-import { AxiosResponse } from 'axios';
 
 class StringBuilder {
     private config: GlobalLogConfig;
@@ -14,9 +13,13 @@ class StringBuilder {
         this.filteredHeaderList = ['common', 'delete', 'get', 'head', 'post', 'put', 'patch', 'content-type', 'content-length', 'vary', 'date', 'connection', 'content-security-policy'];
     }
 
-    makeLogTypeWithPrefix(url: string = "", logType: string = "", requestDuration: string = "") {
-        const prefix = this.config.prefixText === false ? `[${logType}${requestDuration}]` : `[${this.config.prefixText || 'Axios'}][${logType} ${url}]`;
-        this.printQueue.push(chalk.green(prefix));
+    makeLogTypeWithPrefix(logType: LOG_TYPE = LOG_TYPE.REQUEST, url: string = "", requestDuration: string = "") {
+
+        let colorFunction = LOG_TYPE.RESPONSE ? chalk.green : chalk.magenta;
+
+        const str =`${logType}${requestDuration}${url}`
+        const prefix = this.config.prefixText === false ? `[${str}]` : `[${this.config.prefixText || 'Axios'}][${str}]`;
+        this.printQueue.push(colorFunction(prefix));
         return this;
     }
 

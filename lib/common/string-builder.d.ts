@@ -4,7 +4,7 @@ declare class StringBuilder {
     private printQueue;
     private filteredHeaderList;
     constructor(config: GlobalLogConfig);
-    makeLogTypeWithPrefix(logType: string): this;
+    makeLogTypeWithPrefix(url?: string, logType?: string, requestDuration?: string): this;
     makeDateFormat(date: Date): this;
     makeHeader(headers?: {
         [key: string]: {

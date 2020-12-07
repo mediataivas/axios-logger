@@ -3,6 +3,11 @@ export interface CommonConfig {
     dateFormat?: string | boolean;
     headers?: boolean;
     logger: (text: string) => any;
+    errorLogger?: (text: string) => any;
+    warnLogger?: (text: string) => any;
+    showDuration?: boolean;
+    isRequestLogEnabled?: boolean;
+    isResponseLogEnabled?: boolean;
 }
 export interface GlobalLogConfig extends CommonConfig {
     data?: boolean;
@@ -21,6 +26,7 @@ export interface ResponseLogConfig extends CommonConfig {
     data?: boolean;
     status?: boolean;
     statusText?: boolean;
+    warnIfDurationIsLongerThanMs?: number;
 }
 export interface ErrorLogConfig extends CommonConfig {
     data?: boolean;

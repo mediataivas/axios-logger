@@ -1,7 +1,8 @@
 import { AxiosResponse } from 'axios';
-import { ResponseLogConfig } from '../common/types';
+import { LOG_TYPE, ResponseLogConfig } from '../common/types';
 import { assembleBuildConfig } from '../common/config';
 import StringBuilder from '../common/string-builder';
+
 
 function responseLogger(response: AxiosResponse, config?: ResponseLogConfig) {
     const {config: {url, method}, status, statusText, data, headers} = response;
@@ -26,7 +27,7 @@ function responseLogger(response: AxiosResponse, config?: ResponseLogConfig) {
 
     const stringBuilder = new StringBuilder(buildConfig);
     const log = stringBuilder
-        .makeLogTypeWithPrefix(url, 'Response', durationString)
+        .makeLogTypeWithPrefix(LOG_TYPE.RESPONSE, url, durationString)
         .makeDateFormat(new Date())
         .makeMethod(method)
         .makeStatus(status, statusText)

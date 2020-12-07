@@ -1,7 +1,8 @@
 import { AxiosRequestConfig } from 'axios';
-import { RequestLogConfig } from '../common/types';
+import { LOG_TYPE, RequestLogConfig } from '../common/types';
 import { assembleBuildConfig, getGlobalConfig } from '../common/config';
 import StringBuilder from '../common/string-builder';
+
 
 function requestLogger(request: AxiosRequestConfig, config?: RequestLogConfig) {
 
@@ -20,10 +21,9 @@ function requestLogger(request: AxiosRequestConfig, config?: RequestLogConfig) {
 
     const stringBuilder = new StringBuilder(buildConfig);
     const log = stringBuilder
-        .makeLogTypeWithPrefix('Request')
+        .makeLogTypeWithPrefix(LOG_TYPE.REQUEST, url)
         .makeDateFormat(new Date())
         .makeMethod(method)
-        .makeUrl(url)
         .makeHeader(headers)
         .makeData(data)
         .build();
