@@ -6,9 +6,14 @@ export let globalConfig: GlobalLogConfig = {
     data: true,
     status: true,
     logger: console.log,
+    warnLogger: console.log,
+    errorLogger: console.log,
     prefixText: 'Axios',
     dateFormat: false,
     headers: false,
+    showDuration: true,
+    isRequestLogEnabled: true,
+    isResponseLogEnabled: true,
 };
 
 function getGlobalConfig() {
@@ -22,7 +27,7 @@ function setGlobalConfig(config: GlobalLogConfig) {
     };
 }
 
-function assembleBuildConfig(config?: RequestLogConfig | ResponseLogConfig | ErrorLogConfig) {
+function assembleBuildConfig(config?: RequestLogConfig | ResponseLogConfig | ErrorLogConfig): any {
     return {
         ...globalConfig,
         ...config,

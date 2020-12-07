@@ -7,6 +7,16 @@ function requestLogger(request: AxiosRequestConfig, config?: RequestLogConfig) {
 
     const {url, method, data, headers} = request;
     const buildConfig = assembleBuildConfig(config);
+    const requestAsAny = request as any;
+    if(!requestAsAny.meta) {
+        requestAsAny.meta = {};
+    }
+
+    requestAsAny.meta.requestStartedAt = new Date().getTime();
+
+    if (!buildConfig.isRequestLogEnabled) {
+        return request;
+    }
 
     const stringBuilder = new StringBuilder(buildConfig);
     const log = stringBuilder
@@ -18,8 +28,7 @@ function requestLogger(request: AxiosRequestConfig, config?: RequestLogConfig) {
         .makeData(data)
         .build();
 
-    const logger = (buildConfig.logger ?? getGlobalConfig().logger);
-    logger(log);
+    buildConfig.logger(log);
 
     return request;
 }

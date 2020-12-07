@@ -28,9 +28,7 @@ function errorLoggerWithoutPromise(error: AxiosError, config?: ErrorLogConfig) {
         .makeData(data)
         .build();
 
-
-    const logger = (buildConfig.logger ?? getGlobalConfig().logger);
-    logger(log);
+    buildConfig.errorLogger(log);
 
     return error;
 }
