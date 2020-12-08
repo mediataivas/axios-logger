@@ -29,7 +29,13 @@ function errorLoggerWithoutPromise(error: AxiosError, config?: ErrorLogConfig) {
         .makeData(data)
         .build();
 
-    buildConfig.errorLogger ? buildConfig.errorLogger(log) : buildConfig.logger(log);
+    if(buildConfig && buildConfig.errorLogger) {
+        buildConfig.errorLogger(log);
+    } else if (buildConfig && buildConfig.logger) {
+        buildConfig.logger(log);
+    } else {
+        console.log(log);
+    }
 
     return error;
 }
