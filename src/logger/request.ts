@@ -1,8 +1,7 @@
 import { AxiosRequestConfig } from 'axios';
 import { LOG_TYPE, RequestLogConfig } from '../common/types';
-import { assembleBuildConfig, getGlobalConfig } from '../common/config';
+import { assembleBuildConfig } from '../common/config';
 import StringBuilder from '../common/string-builder';
-import chalk from 'chalk';
 
 
 function requestLogger(request: AxiosRequestConfig, config?: RequestLogConfig) {
@@ -36,16 +35,19 @@ function requestLogger(request: AxiosRequestConfig, config?: RequestLogConfig) {
     return request;
 }
 
+let lastRandomIndex: number = -1;
+
 function getRandomColor() {
     const colors = ["yellow", "blue", "magenta", "cyan", "white", "gray", "grey", "blackBright", "redBright", "greenBright", "yellowBright", "blueBright", "magentaBright", "cyanBright", "whiteBright"];
-    let randomTextIndex
-    let randomBgIndex
+    let randomTextColorIndex
+    let randomBgColorIndex
     do {
-        randomTextIndex = Math.floor(Math.random() * colors.length);
-        randomBgIndex = Math.floor(Math.random() * colors.length);
-    } while(randomBgIndex === randomTextIndex);
+        randomTextColorIndex = Math.floor(Math.random() * colors.length);
+        randomBgColorIndex = Math.floor(Math.random() * colors.length);
+    } while(randomBgColorIndex === randomTextColorIndex || lastRandomIndex === randomTextColorIndex);
 
-    return chalk.bgKeyword(colors[randomBgIndex]);
+    lastRandomIndex = randomTextColorIndex;
+    return colors[randomTextColorIndex];
 }
 
 export default requestLogger;
