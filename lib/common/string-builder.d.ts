@@ -16,6 +16,5 @@ declare class StringBuilder {
     makeData(data: object): this;
     makeStatus(status?: number, statusText?: string): this;
     build(): string;
-    private static chalkByType;
 }
 export default StringBuilder;
