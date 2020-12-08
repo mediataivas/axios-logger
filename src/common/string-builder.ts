@@ -13,13 +13,13 @@ class StringBuilder {
         this.filteredHeaderList = ['common', 'delete', 'get', 'head', 'post', 'put', 'patch', 'content-type', 'content-length', 'vary', 'date', 'connection', 'content-security-policy'];
     }
 
-    makeLogTypeWithPrefix(logType: LOG_TYPE = LOG_TYPE.REQUEST, url: string = "", requestDuration: string = "") {
+    makeLogTypeWithPrefix(logType: LOG_TYPE = LOG_TYPE.REQUEST, url: string = "", requestDuration: string = "", randomChalk: any) {
 
-        let colorFunction = LOG_TYPE.RESPONSE ? chalk.green : chalk.magenta;
+        const coloredType = randomChalk ? randomChalk(logType.toString()) : StringBuilder.chalkByType(logType, logType.toString());
 
-        const str =`${StringBuilder.chalkByType(logType, logType)}${requestDuration}${url}`
+        const str =`${coloredType}${requestDuration}${url}`
         const prefix = this.config.prefixText === false ? `[${str}]` : `[${this.config.prefixText || 'Axios'}][${str}]`;
-        this.printQueue.push(colorFunction(prefix));
+        this.printQueue.push(prefix);
         return this;
     }
 
@@ -71,19 +71,20 @@ class StringBuilder {
         return this.printQueue.join(' ');
     }
 
-    private static chalkByType(logType: LOG_TYPE, str: string): void {
+    private static chalkByType(logType: LOG_TYPE, str: string): string {
         switch (logType) {
             case LOG_TYPE.REQUEST:
-                chalk.green(str);
-                break;
+                return chalk.green(str);
             case LOG_TYPE.RESPONSE:
-                chalk.yellow(str);
-                break;
+                return chalk.yellow(str);
             case LOG_TYPE.ERROR:
-                chalk.red(str);
-                break;
+                return chalk.red(str);
+
         }
+        return str;
     }
+
+
 }
 
 export default StringBuilder;
