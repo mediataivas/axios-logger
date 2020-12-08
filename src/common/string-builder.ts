@@ -17,7 +17,7 @@ class StringBuilder {
         const randomIdColored = color ? chalk.keyword(color).bgKeyword(colorBg)("#"+randomId) : logType;
         const prefix = this.config.prefixText === false ? `` : `[${this.config.prefixText || 'Axios'}]`;
 
-        this.printQueue.push(chalk.green(prefix) + `${logType.toString()}${randomIdColored} ${url}${requestDuration}`);
+        this.printQueue.push(`${chalk.green(prefix)} [${logType.toString()}${randomIdColored} ${url}${requestDuration}]`);
         return this;
     }
 
