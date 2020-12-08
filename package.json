@@ -50,19 +50,8 @@
     },
     "dependencies": {
         "@types/dateformat": "^3.0.1",
-        "chalk": "^2.4.1",
+        "chalk": "^2.4.2",
         "dateformat": "^3.0.3"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged"
-        }
-    },
-    "lint-staged": {
-        "*.{js,css,json,md}": [
-            "prettier --write",
-            "git add"
-        ]
     },
     "scripts": {
         "type-check": "tsc --noEmit",

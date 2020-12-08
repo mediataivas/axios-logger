@@ -14,8 +14,11 @@ function requestLogger(request: AxiosRequestConfig, config?: RequestLogConfig) {
     }
     const randomChalk = getRandomColor();
     const randomChalkBg = getRandomColor();
+    const randomId = makeId();
+
     requestAsAny.meta.chalk = randomChalk;
     requestAsAny.meta.chalkBg = randomChalkBg;
+    requestAsAny.meta.randomId = randomId;
 
     requestAsAny.meta.requestStartedAt = new Date().getTime();
 
@@ -25,7 +28,7 @@ function requestLogger(request: AxiosRequestConfig, config?: RequestLogConfig) {
 
     const stringBuilder = new StringBuilder(buildConfig);
     const log = stringBuilder
-        .makeLogTypeWithPrefix(LOG_TYPE.REQUEST, url, undefined, randomChalk, randomChalkBg)
+        .makeLogTypeWithPrefix(LOG_TYPE.REQUEST, url, undefined, randomChalk, randomChalkBg, randomId)
         .makeDateFormat(new Date())
         .makeMethod(method)
         .makeHeader(headers)
@@ -48,6 +51,16 @@ function getRandomColor() {
 
     lastRandomIndex = randomTextColorIndex;
     return colors[randomTextColorIndex];
+}
+
+function makeId(): string {
+    let text = "";
+    const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < 3; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
 }
 
 export default requestLogger;

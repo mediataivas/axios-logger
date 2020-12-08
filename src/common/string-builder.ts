@@ -13,13 +13,11 @@ class StringBuilder {
         this.filteredHeaderList = ['common', 'delete', 'get', 'head', 'post', 'put', 'patch', 'content-type', 'content-length', 'vary', 'date', 'connection', 'content-security-policy'];
     }
 
-    makeLogTypeWithPrefix(logType: LOG_TYPE = LOG_TYPE.REQUEST, url: string = "", requestDuration: string = "", color?: any, colorBg?: any) {
-
-        const logStr = `${logType.toString()} ${url}${requestDuration}`;
-        const coloredType = color ? chalk.keyword(color).bgKeyword(colorBg)(logStr) : logType;
+    makeLogTypeWithPrefix(logType: LOG_TYPE = LOG_TYPE.REQUEST, url: string = "", requestDuration: string = "", color?: any, colorBg?: any, randomId?: string) {
+        const randomIdColored = color ? chalk.keyword(color).bgKeyword(colorBg)("#"+randomId) : logType;
         const prefix = this.config.prefixText === false ? `` : `[${this.config.prefixText || 'Axios'}]`;
 
-        this.printQueue.push(chalk.green(prefix) + `[${coloredType}]`);
+        this.printQueue.push(chalk.green(prefix) + `${logType.toString()}${randomIdColored} ${url}${requestDuration}`);
         return this;
     }
 
