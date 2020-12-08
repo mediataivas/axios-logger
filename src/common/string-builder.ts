@@ -17,7 +17,7 @@ class StringBuilder {
 
         let colorFunction = LOG_TYPE.RESPONSE ? chalk.green : chalk.magenta;
 
-        const str =`${logType}${requestDuration}${url}`
+        const str =`${StringBuilder.chalkByType(logType, logType)}${requestDuration}${url}`
         const prefix = this.config.prefixText === false ? `[${str}]` : `[${this.config.prefixText || 'Axios'}][${str}]`;
         this.printQueue.push(colorFunction(prefix));
         return this;
@@ -69,6 +69,20 @@ class StringBuilder {
 
     build() {
         return this.printQueue.join(' ');
+    }
+
+    private static chalkByType(logType: LOG_TYPE, str: string): void {
+        switch (logType) {
+            case LOG_TYPE.REQUEST:
+                chalk.green(str);
+                break;
+            case LOG_TYPE.RESPONSE:
+                chalk.yellow(str);
+                break;
+            case LOG_TYPE.ERROR:
+                chalk.red(str);
+                break;
+        }
     }
 }
 

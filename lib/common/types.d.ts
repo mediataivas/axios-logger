@@ -9,6 +9,11 @@ export interface CommonConfig {
     isRequestLogEnabled?: boolean;
     isResponseLogEnabled?: boolean;
 }
+export declare enum LOG_TYPE {
+    REQUEST = "Request",
+    RESPONSE = "Response",
+    ERROR = "Error"
+}
 export interface GlobalLogConfig extends CommonConfig {
     data?: boolean;
     method?: boolean;

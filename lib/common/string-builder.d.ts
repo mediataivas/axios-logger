@@ -1,10 +1,10 @@
-import { GlobalLogConfig } from './types';
+import { GlobalLogConfig, LOG_TYPE } from './types';
 declare class StringBuilder {
     private config;
     private printQueue;
     private filteredHeaderList;
     constructor(config: GlobalLogConfig);
-    makeLogTypeWithPrefix(url?: string, logType?: string, requestDuration?: string): this;
+    makeLogTypeWithPrefix(logType?: LOG_TYPE, url?: string, requestDuration?: string): this;
     makeDateFormat(date: Date): this;
     makeHeader(headers?: {
         [key: string]: {
@@ -16,5 +16,6 @@ declare class StringBuilder {
     makeData(data: object): this;
     makeStatus(status?: number, statusText?: string): this;
     build(): string;
+    private static chalkByType;
 }
 export default StringBuilder;
