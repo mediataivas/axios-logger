@@ -13,7 +13,7 @@ class StringBuilder {
         this.filteredHeaderList = ['common', 'delete', 'get', 'head', 'post', 'put', 'patch', 'content-type', 'content-length', 'vary', 'date', 'connection', 'content-security-policy'];
     }
 
-    makeLogTypeWithPrefix(logType: LOG_TYPE = LOG_TYPE.REQUEST, url: string = "", requestDuration: string = "", randomChalk: any) {
+    makeLogTypeWithPrefix(logType: LOG_TYPE = LOG_TYPE.REQUEST, url: string = "", requestDuration: string = "", randomChalk?: any) {
 
         const coloredType = randomChalk ? randomChalk(logType.toString()) : StringBuilder.chalkByType(logType, logType.toString());
 
