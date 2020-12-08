@@ -15,11 +15,11 @@ class StringBuilder {
 
     makeLogTypeWithPrefix(logType: LOG_TYPE = LOG_TYPE.REQUEST, url: string = "", requestDuration: string = "", color?: any, colorBg?: any) {
 
-        const coloredType = color ? chalk.keyword(color).bgKeyword(colorBg)(logType.toString()) : StringBuilder.chalkByType(logType, logType.toString());
+        const logStr = `${logType.toString()} ${url}${requestDuration}`;
+        const coloredType = color ? chalk.keyword(color).bgKeyword(colorBg)(logStr) : StringBuilder.chalkByType(logType, logStr);
+        const prefix = this.config.prefixText === false ? `` : `[${this.config.prefixText || 'Axios'}]`;
 
-        const str =`${coloredType}${url}${requestDuration}`
-        const prefix = this.config.prefixText === false ? `[${str}]` : `[${this.config.prefixText || 'Axios'}][${str}]`;
-        this.printQueue.push(prefix);
+        this.printQueue.push(chalk.green(prefix) + `[${coloredType}]`);
         return this;
     }
 
