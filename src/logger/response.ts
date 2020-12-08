@@ -27,7 +27,7 @@ function responseLogger(response: AxiosResponse, config?: ResponseLogConfig) {
 
     const stringBuilder = new StringBuilder(buildConfig);
     const log = stringBuilder
-        .makeLogTypeWithPrefix(LOG_TYPE.RESPONSE, url, durationString, respConfig.meta?.chalk)
+        .makeLogTypeWithPrefix(LOG_TYPE.RESPONSE, url, durationString, respConfig.meta?.chalk, respConfig.meta?.chalkBg)
         .makeDateFormat(new Date())
         .makeMethod(method)
         .makeStatus(status, statusText)

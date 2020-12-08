@@ -13,7 +13,9 @@ function requestLogger(request: AxiosRequestConfig, config?: RequestLogConfig) {
         requestAsAny.meta = {};
     }
     const randomChalk = getRandomColor();
+    const randomChalkBg = getRandomColor();
     requestAsAny.meta.chalk = randomChalk;
+    requestAsAny.meta.chalkBg = randomChalkBg;
 
     requestAsAny.meta.requestStartedAt = new Date().getTime();
 
@@ -23,7 +25,7 @@ function requestLogger(request: AxiosRequestConfig, config?: RequestLogConfig) {
 
     const stringBuilder = new StringBuilder(buildConfig);
     const log = stringBuilder
-        .makeLogTypeWithPrefix(LOG_TYPE.REQUEST, url, undefined, randomChalk)
+        .makeLogTypeWithPrefix(LOG_TYPE.REQUEST, url, undefined, randomChalk, randomChalkBg)
         .makeDateFormat(new Date())
         .makeMethod(method)
         .makeHeader(headers)
@@ -40,11 +42,9 @@ let lastRandomIndex: number = -1;
 function getRandomColor() {
     const colors = ["yellow", "blue", "magenta", "cyan", "white", "gray", "grey", "blackBright", "redBright", "greenBright", "yellowBright", "blueBright", "magentaBright", "cyanBright", "whiteBright"];
     let randomTextColorIndex
-    let randomBgColorIndex
     do {
         randomTextColorIndex = Math.floor(Math.random() * colors.length);
-        randomBgColorIndex = Math.floor(Math.random() * colors.length);
-    } while(randomBgColorIndex === randomTextColorIndex || lastRandomIndex === randomTextColorIndex);
+    } while(lastRandomIndex === randomTextColorIndex);
 
     lastRandomIndex = randomTextColorIndex;
     return colors[randomTextColorIndex];

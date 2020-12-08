@@ -18,11 +18,12 @@ function errorLoggerWithoutPromise(error: AxiosError, config?: ErrorLogConfig) {
 
     const buildConfig = assembleBuildConfig(config);
 
+    // eslint-disable-next-line no-console
+    console.log("kwaakbuildConfig", buildConfig)
     const stringBuilder = new StringBuilder(buildConfig);
     const log = stringBuilder
         .makeLogTypeWithPrefix(LOG_TYPE.ERROR, url, "", respConfig.meta?.chalk)
         .makeDateFormat(new Date())
-        .makeMethod(method)
         .makeUrl(url)
         .makeStatus(status, statusText)
         .makeHeader(headers)

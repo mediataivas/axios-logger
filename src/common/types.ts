@@ -11,7 +11,7 @@ export interface CommonConfig {
 }
 
 export enum LOG_TYPE {
-    REQUEST = "Request",
+    REQUEST = "Request ",
     RESPONSE = "Response",
     ERROR = "Error",
 }
