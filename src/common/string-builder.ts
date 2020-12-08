@@ -16,7 +16,7 @@ class StringBuilder {
     makeLogTypeWithPrefix(logType: LOG_TYPE = LOG_TYPE.REQUEST, url: string = "", requestDuration: string = "", color?: any, colorBg?: any) {
 
         const logStr = `${logType.toString()} ${url}${requestDuration}`;
-        const coloredType = color ? chalk.keyword(color).bgKeyword(colorBg)(logStr) : StringBuilder.chalkByType(logType, logStr);
+        const coloredType = color ? chalk.keyword(color).bgKeyword(colorBg)(logStr) : logType;
         const prefix = this.config.prefixText === false ? `` : `[${this.config.prefixText || 'Axios'}]`;
 
         this.printQueue.push(chalk.green(prefix) + `[${coloredType}]`);
@@ -71,18 +71,18 @@ class StringBuilder {
         return this.printQueue.join(' ');
     }
 
-    private static chalkByType(logType: LOG_TYPE, str: string): string {
-        switch (logType) {
-            case LOG_TYPE.REQUEST:
-                return chalk.green(str);
-            case LOG_TYPE.RESPONSE:
-                return chalk.yellow(str);
-            case LOG_TYPE.ERROR:
-                return chalk.red(str);
-
-        }
-        return str;
-    }
+    // private static chalkByType(logType: LOG_TYPE, str: string): string {
+    //     switch (logType) {
+    //         case LOG_TYPE.REQUEST:
+    //             return chalk.green(str);
+    //         case LOG_TYPE.RESPONSE:
+    //             return chalk.yellow(str);
+    //         case LOG_TYPE.ERROR:
+    //             return chalk.red(str);
+    //
+    //     }
+    //     return str;
+    // }
 
 
 }

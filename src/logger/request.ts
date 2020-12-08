@@ -40,7 +40,7 @@ function requestLogger(request: AxiosRequestConfig, config?: RequestLogConfig) {
 let lastRandomIndex: number = -1;
 
 function getRandomColor() {
-    const colors = ["yellow", "blue", "magenta", "cyan", "white", "gray", "grey", "blackBright", "redBright", "greenBright", "yellowBright", "blueBright", "magentaBright", "cyanBright", "whiteBright"];
+    const colors = ["yellow", "blue", "magenta", "cyan", "white", "grey", "black"];
     let randomTextColorIndex
     do {
         randomTextColorIndex = Math.floor(Math.random() * colors.length);
