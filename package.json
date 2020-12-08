@@ -1,6 +1,6 @@
 {
     "name": "axios-logger",
-    "version": "3.0.8",
+    "version": "3.0.9",
     "description": "Beautify Axios Logging Messages",
     "main": "lib/index.js",
     "keywords": [
