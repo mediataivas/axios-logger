@@ -45,7 +45,7 @@ function getRandomColor() {
         randomBgIndex = Math.floor(Math.random() * colors.length);
     } while(randomBgIndex === randomTextIndex);
 
-    return chalk.keyword(colors[randomTextIndex]).bgKeyword(colors[randomBgIndex]);
+    return chalk.bgKeyword(colors[randomBgIndex]);
 }
 
 export default requestLogger;

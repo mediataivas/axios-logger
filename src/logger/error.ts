@@ -14,12 +14,13 @@ function errorLoggerWithoutPromise(error: AxiosError, config?: ErrorLogConfig) {
         data = response.data;
         headers = response.headers;
     }
+    const respConfig = error.config as any;
 
     const buildConfig = assembleBuildConfig(config);
 
     const stringBuilder = new StringBuilder(buildConfig);
     const log = stringBuilder
-        .makeLogTypeWithPrefix(LOG_TYPE.ERROR)
+        .makeLogTypeWithPrefix(LOG_TYPE.ERROR, url, "", respConfig.meta?.chalk)
         .makeDateFormat(new Date())
         .makeMethod(method)
         .makeUrl(url)
