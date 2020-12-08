@@ -43,7 +43,7 @@ function getRandomColor() {
     do {
         randomTextIndex = Math.floor(Math.random() * colors.length);
         randomBgIndex = Math.floor(Math.random() * colors.length);
-    } while(randomBgIndex !== randomTextIndex);
+    } while(randomBgIndex === randomTextIndex);
 
     return chalk.keyword(colors[randomTextIndex]).bgKeyword(colors[randomBgIndex]);
 }

@@ -19,15 +19,16 @@ function errorLoggerWithoutPromise(error: AxiosError, config?: ErrorLogConfig) {
 
     const stringBuilder = new StringBuilder(buildConfig);
     const log = stringBuilder
-        .makeLogTypeWithPrefix(LOG_TYPE.ERROR, url)
+        .makeLogTypeWithPrefix(LOG_TYPE.ERROR)
         .makeDateFormat(new Date())
         .makeMethod(method)
+        .makeUrl(url)
         .makeStatus(status, statusText)
         .makeHeader(headers)
         .makeData(data)
         .build();
 
-    buildConfig.errorLogger(log);
+    buildConfig.errorLogger ? buildConfig.errorLogger(log) : buildConfig.logger(log);
 
     return error;
 }
